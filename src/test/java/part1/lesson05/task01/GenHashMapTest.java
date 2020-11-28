@@ -64,6 +64,16 @@ class GenHashMapTest {
     }
 
     @Test
+    void negativePut() {
+        GenHashMap<Integer, String> genHashMap = new GenHashMap<>();
+
+        genHashMap.put(1, "1");
+        genHashMap.put(1, "2");
+
+        assertEquals("2", genHashMap.get(1));
+    }
+
+    @Test
     void remove() {
         GenHashMap<Integer, String> genHashMap = new GenHashMap<>();
 
@@ -75,6 +85,18 @@ class GenHashMapTest {
         assertNull(genHashMap.get(1));
         genHashMap.remove(2);
         assertNull(genHashMap.get(2));
+        genHashMap.remove(3);
+        assertNull(genHashMap.get(3));
+    }
+
+    @Test
+    void negativeRemove() {
+        GenHashMap<Integer, String> genHashMap = new GenHashMap<>();
+
+        genHashMap.put(1, "1");
+        genHashMap.put(2, "2");
+        genHashMap.put(3, "3");
+
         genHashMap.remove(3);
         assertNull(genHashMap.get(3));
     }

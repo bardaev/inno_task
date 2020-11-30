@@ -2,6 +2,7 @@ package part1.lesson04.task01;
 
 public class Person {
 
+    // поля обязательно должны быть приватными и доступ должен осуществляться через геттеры/сеттеры
     String sex;
     int age;
     String name;

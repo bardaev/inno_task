@@ -10,7 +10,7 @@ import java.util.Random;
 public class SortTest {
 
     Person[] array;
-    int size = 10000;
+    int size = 10;
 
     @BeforeEach
     void setUp() {
@@ -20,6 +20,8 @@ public class SortTest {
             array[i] = new Person(getName(), getSex(), getAge());
         }
     }
+
+    // подумайте, как можно вынести код из тестов в функцию, чтобы избежать дублирования
 
     @Test
     void bubbleSortTest() {

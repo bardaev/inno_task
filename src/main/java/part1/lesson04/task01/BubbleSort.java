@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 public class BubbleSort implements Sort {
     private Person[] array;
+    // temp нужен лишь в функции swap, старайтесь максимально ограничивать область видимости переменных
     private Person temp;
     boolean sorted = false;
 
@@ -19,6 +20,10 @@ public class BubbleSort implements Sort {
         while(!sorted) {
             sorted = true;
             for (int i = 0; i < array.length - 1; i++) {
+                // по идее вы уже после срабатывания этого условия можете выйти из цикла, вам не нужно потом три раза
+                // ещё проверять isSameSex. Тоже относится и к следующему условию. Проще объединить все условия
+                // в одно как вы сделали в InsertionSort. Можете посмотреть в сторону Comparator и реализовать в
+                // Person интерфейс Comparable
                 if (isNeedSwap(i)) {
                     swap(i);
                 }
@@ -36,6 +41,7 @@ public class BubbleSort implements Sort {
                 .forEach(System.out::println);
     }
 
+    // единообразность это важно. Эту функцию следует назвать isNeedSwapSex в соответствии со всеми остальными
     private boolean isNeedSwap(int pos) {
         if (array[pos].sex.equals("WOMAN") && array[pos+1].sex.equals("MAN")) return true;
         return false;
@@ -46,6 +52,8 @@ public class BubbleSort implements Sort {
     }
 
     private boolean isSameSex(int pos) {
+        // старайтесь писать максимально компактно. Конструкт if тут не обязателен. И опять же будьте последовательны и
+        // пишите единообразно
         if (array[pos].sex.equals(array[pos+1].sex)) return true;
         return false;
     }

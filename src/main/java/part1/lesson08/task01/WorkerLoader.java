@@ -17,7 +17,7 @@ public class WorkerLoader extends ClassLoader {
     @Override
     public Class<?> loadClass(String name) throws ClassNotFoundException {
         if (name.equals("part1.lesson08.task01.WorkerImpl")) {
-            Path dest = Paths.get(System.getProperty("user.dir")).resolve("src").resolve("main").resolve("java").resolve("part1").resolve("lesson08").resolve("task01").resolve("WorkerImpl.java");
+            Path dest = Paths.get(System.getProperty("user.dir")).resolve("src").resolve("main").resolve("java").resolve("part1").resolve("lesson08").resolve("task01").resolve("WorkerImpl.class");
             byte[] classData = null;
             try (InputStream inputStream = new URL(dest.toUri().toString()).openConnection().getInputStream();
                  ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {

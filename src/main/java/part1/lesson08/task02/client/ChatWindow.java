@@ -6,6 +6,11 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ * ChatWindow class represents graphical window.
+ * This window have text area and input text
+ */
+
 public class ChatWindow extends Frame implements Window {
     TextArea chatMsg;
     TextField inputMsg;
@@ -57,11 +62,20 @@ public class ChatWindow extends Frame implements Window {
         });
     }
 
+    /**
+     * Displays incoming message
+     * @param msg - incoming message
+     */
     public void displayMsg(String msg) {
         chatMsg.append(msg);
         chatMsg.append("\n");
         repaint();
     }
+
+    /**
+     * Displays message error in new dialog window
+     * @param msg
+     */
 
     public void displayError(String msg) {
         new ErrorDialog(ChatWindow.this, msg);

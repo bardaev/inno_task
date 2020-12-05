@@ -4,6 +4,11 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 
+/**
+ * Client controller receive and send messages.
+ * Also this class connects to server
+ */
+
 public class ClientController {
 
     private Socket clientSocket;
@@ -16,6 +21,11 @@ public class ClientController {
         this.window = window;
     }
 
+    /**
+     * Connect to server
+     * @param nicName - string which identifies Client unit
+     * @return
+     */
     public boolean connect(String nicName) {
         try {
             clientSocket = new Socket(InetAddress.getLocalHost(), 10000);
@@ -49,6 +59,10 @@ public class ClientController {
             window.displayError("Ошибка отправки сообщения");
         }
     }
+
+    /**
+     * ReadMsg class listen server on a separate thread
+     */
 
     private class ReadMsg extends Thread {
         @Override

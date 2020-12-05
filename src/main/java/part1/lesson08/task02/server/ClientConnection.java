@@ -5,7 +5,9 @@ import java.net.Socket;
 import java.util.LinkedList;
 
 /**
- *
+ * This class represents a client unit.
+ * Client unit works in a dedicated thread and listen socket.
+ * When socket gets incoming message, this message send other Client unit.
  */
 
 public class ClientConnection extends Thread {

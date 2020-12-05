@@ -6,6 +6,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedList;
 
+/**
+ * Server class initializes ServerSocket.
+ * When Client unit connect to Server, it add to clientList.
+ */
+
 public class Server {
 
     private static ServerSocket serverSocket;

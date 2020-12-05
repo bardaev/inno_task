@@ -7,11 +7,11 @@ public class CleanUp {
     public void cleanUp(Object object, Set<String> fieldsToCleanUp, Set<String> fieldsToOutput) {
         Class<?> cl = object.getClass();
 
-        if (isMap(cl.getInterfaces())) {
+        if (containsMap(cl.getInterfaces())) {
             mapCleanOutput(object, fieldsToCleanUp, fieldsToOutput);
         } else {
-            fieldCleanUp(object, fieldsToCleanUp, cl);
-            fieldOutput(object, fieldsToOutput, cl);
+            fieldCleanUp(object, fieldsToCleanUp);
+            fieldOutput(object, fieldsToOutput);
         }
     }
 
@@ -40,7 +40,8 @@ public class CleanUp {
         }
     }
 
-    private void fieldOutput(Object object, Set<String> fieldsToOutput, Class<?> cl) {
+    private void fieldOutput(Object object, Set<String> fieldsToOutput) {
+        Class<?> cl = object.getClass();
         Iterator<String> iterator = fieldsToOutput.iterator();
 
         while (iterator.hasNext()) {
@@ -61,18 +62,30 @@ public class CleanUp {
         }
     }
 
-    private void fieldCleanUp(Object object, Set<String> fieldsToCleanUp, Class<?> cl) {
+    private void fieldCleanUp(Object object, Set<String> fieldsToCleanUp) {
+        Class<?> cl = object.getClass();
         Iterator<String> iterator = fieldsToCleanUp.iterator();
+        String currentField = "";
+        ArrayList<Field> fields = new ArrayList<>();
 
         while (iterator.hasNext()) {
             try {
-                Field f = cl.getDeclaredField(iterator.next());
-                f.setAccessible(true);
-                setDefaultValue(object, f);
-            } catch (NoSuchFieldException | IllegalAccessException e) {
-                throw new IllegalArgumentException("Field not exist");
+                currentField = iterator.next();
+                fields.add(cl.getDeclaredField(currentField));
+            } catch (NoSuchFieldException e) {
+                throw new IllegalArgumentException("Field " + currentField + " not exist");
             }
         }
+
+        fields.stream()
+                .forEach(field -> {
+                    field.setAccessible(true);
+                    try {
+                        setDefaultValue(object, field);
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                });
     }
 
     private void setDefaultValue(Object object, Field field) throws IllegalAccessException {
@@ -89,10 +102,10 @@ public class CleanUp {
         }
     }
 
-    private boolean isMap(Class<?>[] c) {
-        for (Class<?> cl : c) {
+    private boolean containsMap(Class<?>[] interfaces) {
+        for (Class<?> cl : interfaces) {
             if (cl.getCanonicalName().equals("java.util.Map")) return true;
-            return isMap(cl.getInterfaces());
+            return containsMap(cl.getInterfaces());
         }
 
         return false;

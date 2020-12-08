@@ -1,0 +1,12 @@
+{
+  "field": {
+    "rows": 20,
+    "cols": 30
+  },
+  "steps": 10,
+  "coords": [{"row": 0, "col": 2},
+    {"row": 1, "col": 0},
+    {"row": 1, "col": 2},
+    {"row": 2, "col": 1},
+    {"row": 2, "col": 2}]
+}

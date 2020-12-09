@@ -9,10 +9,10 @@ public class WindowField extends Frame {
     private Button[][] field;
     static final public Color BLACK = Color.BLACK;
     static final public Color WHITE = Color.WHITE;
-    private Controller controller;
+    private ControllerInterface controller;
 
-    public WindowField(int rows, int cols, Controller controller) {
-        super("Game life");
+    public WindowField(int rows, int cols, ControllerInterface controller, String name) {
+        super(name);
 
         this.controller = controller;
 

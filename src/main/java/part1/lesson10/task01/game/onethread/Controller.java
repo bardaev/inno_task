@@ -1,40 +1,50 @@
-package part1.lesson10.task01.game;
+package part1.lesson10.task01.game.onethread;
 
+import com.google.common.base.Stopwatch;
+import part1.lesson10.task01.game.ControllerInterface;
+import part1.lesson10.task01.game.LifeField;
+import part1.lesson10.task01.game.WindowField;
 import part1.lesson10.task01.model.Config;
 import part1.lesson10.task01.model.Coord;
 import part1.lesson10.task01.utils.FileOperation;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
-public class Controller {
+public class Controller implements ControllerInterface {
 
     private Config config;
     private WindowField windowField;
     private LifeField lifeField;
     private int steps;
+    private boolean delay;
     private boolean isStarted = false;
     private ArrayList<Coord> listToChangeUnit = new ArrayList<>();
 
-    public Controller(String pathToConfig) {
+    public Controller(String pathToConfig, boolean delay) {
         this.config = FileOperation.readConfig(pathToConfig);
-        this.windowField = new WindowField(config.getField().getRows(), config.getField().getCols(), this);
+        this.delay = delay;
+        this.windowField = new WindowField(config.getField().getRows(), config.getField().getCols(), this, "Controller");
         this.lifeField = new LifeField(config.getField(), config.getCoords(), windowField);
         this.steps = config.getSteps();
     }
 
     public void start() {
         if (!isStarted) {
+            Stopwatch stopwatch = Stopwatch.createStarted();
             for (int i = 0; i < steps; i++) {
-                if (i == 1) {
-                    i = i;
-                }
                 scanField();
-                try {
-                    Thread.sleep(200);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                if (delay) {
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
+            stopwatch.stop();
+            long millis = stopwatch.elapsed(TimeUnit.MILLISECONDS);
+            System.out.println("Controller: " + millis + "ms");
             FileOperation.writeConfig(lifeField.getResultCoord());
             isStarted = true;
         }

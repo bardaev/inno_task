@@ -28,15 +28,15 @@ public class InsertionSort implements Sort {
     }
 
     private boolean isNeedSwap(Person person1, Person person2) throws NameAndAgeException {
-        if (person1.name.equals(person2.name) && person1.age == person2.age) {
+        if (person1.getName().equals(person2.getName()) && person1.getAge() == person2.getAge()) {
             NameAndAgeException err = new NameAndAgeException("Same name: " +
-                    "name 1: " + person1.name + " name 2: " + person2.name +
-                    " And age 1: " + person1.age + " age 2: " + person2.age);
+                    "name 1: " + person1.getName() + " name 2: " + person2.getName() +
+                    " And age 1: " + person1.getAge() + " age 2: " + person2.getAge());
             throw err;
         }
-        if (person1.sex.equals("MAN") && person2.sex.equals("WOMAN")) return true;
-        else if (person1.sex.equals(person2.sex) && person1.age > person2.age) return true;
-        else if (person1.sex.equals(person2.sex) && person1.age == person2.age && person1.name.compareTo(person2.name) > 0) return true;
+        if (person1.getSex().equals("MAN") && person2.getSex().equals("WOMAN")) return true;
+        else if (person1.getSex().equals(person2.getSex()) && person1.getAge() > person2.getAge()) return true;
+        else if (person1.getSex().equals(person2.getSex()) && person1.getAge() == person2.getAge() && person1.getName().compareTo(person2.getName()) > 0) return true;
         return false;
     }
 

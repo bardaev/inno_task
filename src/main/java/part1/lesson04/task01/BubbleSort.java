@@ -6,7 +6,6 @@ import java.util.Arrays;
 
 public class BubbleSort implements Sort {
     private Person[] array;
-    private Person temp;
     boolean sorted = false;
 
     public BubbleSort (Person[] arr) {
@@ -19,15 +18,11 @@ public class BubbleSort implements Sort {
         while(!sorted) {
             sorted = true;
             for (int i = 0; i < array.length - 1; i++) {
-                if (isNeedSwap(i)) {
+                if (isNeedSwapSex(i)) {
                     swap(i);
-                }
-
-                if (isSameSex(i) && isNeedSwapAge(i)) {
+                } else if (isSameSex(i) && isNeedSwapAge(i)) {
                     swap(i);
-                }
-
-                if (isSameSex(i) && isSameAge(i) && array[i].name.compareTo(array[i+1].name) > 0) {
+                } else if (isSameSex(i) && isSameAge(i) && array[i].getName().compareTo(array[i+1].getName()) > 0) {
                     swap(i);
                 }
             }
@@ -36,22 +31,21 @@ public class BubbleSort implements Sort {
                 .forEach(System.out::println);
     }
 
-    private boolean isNeedSwap(int pos) {
-        if (array[pos].sex.equals("WOMAN") && array[pos+1].sex.equals("MAN")) return true;
+    private boolean isNeedSwapSex(int pos) {
+        if (array[pos].getSex().equals("WOMAN") && array[pos+1].getSex().equals("MAN")) return true;
         return false;
     }
 
     private boolean isNeedSwapAge(int pos) {
-        return array[pos].age < array[pos+1].age;
+        return array[pos].getAge() < array[pos+1].getAge();
     }
 
     private boolean isSameSex(int pos) {
-        if (array[pos].sex.equals(array[pos+1].sex)) return true;
-        return false;
+        return array[pos].getSex().equals(array[pos+1].getSex());
     }
 
     private boolean isSameAge(int pos) {
-        return array[pos].age == array[pos+1].age;
+        return array[pos].getAge() == array[pos+1].getAge();
     }
 
     /**
@@ -60,11 +54,12 @@ public class BubbleSort implements Sort {
      * if name1 == name2 and age1 == age2 @throws NameAndAgeException
      */
     private void swap(int pos) throws NameAndAgeException {
+        Person temp;
 
-        if (array[pos].name.equals(array[pos+1].name) && array[pos].age == array[pos+1].age) {
+        if (array[pos].getName().equals(array[pos+1].getName()) && array[pos].getAge() == array[pos+1].getAge()) {
             NameAndAgeException err = new NameAndAgeException("Same name: " +
-                    "name 1: " + array[pos].name + " name 2: " + array[pos+1].name +
-                    " And age 1: " + array[pos].age + " age 2: " + array[pos+1].age);
+                    "name 1: " + array[pos].getName() + " name 2: " + array[pos+1].getName() +
+                    " And age 1: " + array[pos].getAge() + " age 2: " + array[pos+1].getAge());
             throw err;
         }
         temp = array[pos];

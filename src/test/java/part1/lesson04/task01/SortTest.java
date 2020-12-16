@@ -10,7 +10,7 @@ import java.util.Random;
 public class SortTest {
 
     Person[] array;
-    int size = 10000;
+    int size = 10;
 
     @BeforeEach
     void setUp() {

@@ -19,39 +19,13 @@ public class BubbleSort implements Sort {
         while(!sorted) {
             sorted = true;
             for (int i = 0; i < array.length - 1; i++) {
-                if (isNeedSwap(i)) {
-                    swap(i);
-                }
-
-                if (isSameSex(i) && isNeedSwapAge(i)) {
-                    swap(i);
-                }
-
-                if (isSameSex(i) && isSameAge(i) && array[i].name.compareTo(array[i+1].name) > 0) {
+                if (array[i].compareTo(array[i+1]) < 0) {
                     swap(i);
                 }
             }
         }
         Arrays.asList(array).stream()
                 .forEach(System.out::println);
-    }
-
-    private boolean isNeedSwap(int pos) {
-        if (array[pos].sex.equals("WOMAN") && array[pos+1].sex.equals("MAN")) return true;
-        return false;
-    }
-
-    private boolean isNeedSwapAge(int pos) {
-        return array[pos].age < array[pos+1].age;
-    }
-
-    private boolean isSameSex(int pos) {
-        if (array[pos].sex.equals(array[pos+1].sex)) return true;
-        return false;
-    }
-
-    private boolean isSameAge(int pos) {
-        return array[pos].age == array[pos+1].age;
     }
 
     /**

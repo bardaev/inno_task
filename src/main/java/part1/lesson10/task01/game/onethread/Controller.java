@@ -63,11 +63,7 @@ public class Controller implements ControllerInterface {
     }
 
     private void checkLifeField(Coord coord) {
-        if (lifeField.isAlive(coord)) {
-            if (isNeedKillOrNeedBorn(coord, false)) listToChangeUnit.add(coord);
-        } else {
-            if (isNeedKillOrNeedBorn(coord, true)) listToChangeUnit.add(coord);
-        }
+        if (isNeedKillOrNeedBorn(coord, !lifeField.isAlive(coord))) listToChangeUnit.add(coord);
     }
 
     /**

@@ -20,10 +20,7 @@ public class ComputationTask extends RecursiveAction {
 
     @Override
     protected void compute() {
-        if (row != lifeField.getRowSize()) {
-            scanField(row);
-            invokeAll(new ComputationTask(lifeField, list, ++row));
-        }
+        scanField(row);
     }
 
     private void scanField(int row) {

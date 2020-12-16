@@ -12,10 +12,10 @@ public class FileOperation {
     static private Config config;
     private static String path;
 
-    public static Config readConfig(String p) {
-        path = p;
+    public static Config readConfig(String path) {
+        FileOperation.path = path;
         try {
-            config = GsonParser.parseJson(p);
+            config = GsonParser.parseJson(path);
         } catch (IOException e) {
             System.err.println("Can't read file");
         }

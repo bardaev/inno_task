@@ -1,9 +1,9 @@
 {
   "field": {
     "rows": 20,
-    "cols": 21
+    "cols": 20
   },
-  "steps": 73,
+  "steps": 75,
   "coords": [{"row": 0, "col": 2},
     {"row": 1, "col": 0},
     {"row": 1, "col": 2},

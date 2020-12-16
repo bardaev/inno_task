@@ -11,14 +11,14 @@ public class Config {
     @SerializedName("steps")
     private int steps;
     @SerializedName("coords")
-    private List<Coord> coords;
+    private List<Coord> liveCellsCoords;
 
     public Config() {}
 
     public Config(Field field, int steps, List<Coord> coords) {
         this.field = field;
         this.steps = steps;
-        this.coords = coords;
+        this.liveCellsCoords = coords;
     }
 
     public Field getField() {
@@ -38,11 +38,11 @@ public class Config {
     }
 
     public List<Coord> getCoords() {
-        return coords;
+        return liveCellsCoords;
     }
 
     public void setCoords(List<Coord> coords) {
-        this.coords = coords;
+        this.liveCellsCoords = coords;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class Config {
         return "Config{" +
                 "field=" + field +
                 ", steps=" + steps +
-                ", coords=" + coords +
+                ", coords=" + liveCellsCoords +
                 '}';
     }
 }

@@ -37,6 +37,7 @@ public class ClientConnection extends Thread {
                         stringBuilder.append((char) c);
                     }
                     if (isGetRequest(stringBuilder.toString())) printCurrentDir();
+                    else printError();
                     downService();
                 }
             }
@@ -52,7 +53,7 @@ public class ClientConnection extends Thread {
 
     private boolean isGetRequest(String request) {
         String[] r = request.split(" ");
-        if (r[0].equals(METHOD) && r[1].equals(SEPARATOR) && r[2].equals(PROTOCOL + SEPARATOR + HTTP_VERSION)) {
+        if (r[0].equals(METHOD) && r[1].startsWith(SEPARATOR) && r[2].equals(PROTOCOL + SEPARATOR + HTTP_VERSION)) {
             return true;
         }
         return false;
@@ -61,8 +62,13 @@ public class ClientConnection extends Thread {
     private void printCurrentDir() throws IOException {
         File file = new File(System.getProperty("user.dir"));
         StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("HTTP/1.1 200 OK\n");
         Arrays.stream(file.list()).forEach(s -> stringBuilder.append(s + "\n"));
         sendMsg(stringBuilder.toString());
+    }
+
+    private void printError() throws IOException {
+        sendMsg("HTTP1.1/ 404 Not Found");
     }
 
     private void sendMsg(String msg) throws IOException {
